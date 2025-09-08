@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>depStoreku</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ==== CSS DARI KAMU ==== */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+    }
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(30px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    .fade-in { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+    .fade-delay-1 { animation-delay: 0.2s; }
+    .fade-delay-2 { animation-delay: 0.4s; }
+    .fade-delay-3 { animation-delay: 0.6s; }
+    .fixed-logo {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      background: #fff;
+    }
+    .banner {
+      background: url("https://img1.pixhost.to/images/8542/638575426_yonzdev.jpg") center/cover no-repeat;
+      padding: 80px 20px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+    .banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .banner h1, .banner p { position: relative; z-index: 1; }
+    .banner h1 { margin: 0; font-size: 40px; font-weight: bold; }
+    .banner p { margin: 10px 0 0; font-size: 18px; opacity: 0.9; }
+    @media(max-width: 600px) {
+      .banner h1 { font-size: 28px; }
+      .banner p { font-size: 14px; }
+    }
+    .info-card, .container {
+      background: #fff;
+      max-width: 900px;
+      margin: -50px auto 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      padding: 25px;
+      position: relative;
+      z-index: 2;
+    }
+    .profile-card { text-align: center; }
+    .profile-logo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #eee;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .store-name {
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+    }
+    .store-name i { color: #1da1f2; font-size: 18px; }
+    .rating { margin-top: 8px; font-size: 14px; color: #666; }
+    .rating i { color: #ffc107; }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 25px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+    .stat {
+      flex: 1;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .stat:hover { transform: scale(1.08); }
+    .stat h3 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #6a0dad, #d63384);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat p { margin: 6px 0 0; font-size: 14px; color: #555; }
+    .section {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 25px 30px;
+    }
+    .section:last-child { border-bottom: none; }
+    .section h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #6a0dad;
+      border-left: 4px solid #6a0dad;
+      padding-left: 10px;
+    }
+    ul { list-style: none; padding: 0; margin: 15px 0; }
+    li {
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #eee;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    li:last-child { border-bottom: none; }
+    li span:last-child {
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(45deg, #6a0dad, #d63384);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+    li:hover { background: #fafafa; padding-left: 8px; }
+    .note {
+      font-size: 14px;
+      color: #555;
+      background: #fafafa;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 12px;
+      border: 1px solid #eee;
+    }
+    .highlight { color: #6a0dad; font-weight: bold; }
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .testimonial {
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .testimonial:hover { transform: translateY(-4px); box-shadow: 0 6px 14px rgba(0,0,0,0.1); }
+    .testimonial strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #333;
+    }
+    .rating { margin-top: 8px; color: #ffc110; font-weight: bold; }
+    .contact {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .contact a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: #fff;
+      border: 2px solid #eee;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+    .contact a:hover {
+      border-color: #6a0dad;
+      transform: translateY(-3px) scale(1.02);
+      background: #fafafa;
+    }
+    .contact a i { font-size: 20px; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #fff;
+      color: #999;
+      font-size: 14px;
+      border-top: 1px solid #f0f0f0;
+    }
+    @media(max-width: 600px) {
+      .stats { flex-direction: column; gap: 15px; }
+      .contact { flex-direction: column; }
+    }
+    /* Form komentar */
+    .comment-form input, .comment-form textarea {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .comment-form button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #6a0dad;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://img1.pixhost.to/images/8543/638582361_yonzdev.jpg" alt="Logo" class="fixed-logo">
+
+  <div class="banner fade-in">
+    <h1>DEPSTORE</h1>
+    <p>Panel Premium & Service Store</p>
+  </div>
+
+  <div class="info-card fade-in fade-delay-1">
+    <div class="profile-card">
+      <img src="https://img1.pixhost.to/images/8543/638582361_yonzdev.jpg" alt="Logo" class="profile-logo">
+      <h2 class="store-name">
+        depstore <i class="fas fa-check-circle"></i>
+      </h2>
+      <p class="rating"><i class="fas fa-star"></i> 4.9 (1,234 Reviews)</p>
+      <div class="stats">
+        <div class="stat"><h3>12.5K</h3><p>Total Terjual</p></div>
+        <div class="stat"><h3>8.2K</h3><p>Pelanggan</p></div>
+        <div class="stat"><h3>98%</h3><p>Kepuasan</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container fade-in fade-delay-2">
+    <div class="section">
+      <h2>List Panel</h2>
+      <ul>
+        <li><span>Panel Unli</span><span>5k</span></li>
+        <li><span>Panel Unli (private)</span><span>7k</span></li>
+        <li><span>Reseller Panel</span><span>10k (public)</span></li>
+        <li><span>Reseller Panel</span><span>15k (private)</span></li>
+        <li><span>Moderator Panel</span><span>30k</span></li>
+        <li><span>Ceo Panel</span><span>35k</span></li>
+      </ul>
+      <p class="note"><span class="highlight">NOTE:</span> KAGAK ADA ADP.<br> BOKEP KALO MAU ADP UP MODS ATAU CEO.</p>
+    </div>
+
+    <div class="section">
+      <h2>Jasa depstore</h2>
+      <ul>
+        <li><span>Jasa Rename SC Bot WA</span><span>10k</span></li>
+        <li><span>Jasa Buat Web Payment</span><span>3k</span></li>
+        <li><span>Jasa Run SC Bot WA</span><span>5k</span></li>
+        <li><span>Jasa Suntik Followers TikTok/IG</span><span>5k - 50k</span></li>
+        <li><span>Jasa Suntik Like TikTok/IG</span><span>5k - 50k</span></li>
+        <li><span>Jasa Suntik View TikTok/IG</span><span>5k - 50k</span></li>
+        <li><span>Jasa Buat Web Store</span><span>15k - 20k</span></li>
+        <li><span>Jasa Makan Mie Ayam Anjir</span><span>10jt</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Catatan</h2>
+      <p class="note">🗣️ Bang napa ga buka adp atau yg lain?<br> 👤 Ga buka karena udh sering dirusuh cuy</p>
+    </div>
+  </div>
+
+  <div class="info-card fade-in fade-delay-3">
+    <h2>Testimoni Pelanggan</h2>
+    <div class="testimonials">
+      <div class="testimonial"><strong>Ardiansyah</strong> Mantap banget, panel stabil dan murah 👍 <div class="rating">⭐ 4.8</div></div>
+      <div class="testimonial"><strong>Sinta</strong> Admin fast respon, recommended banget belanja di sini 💜 <div class="rating">⭐ 5.0</div></div>
+      <div class="testimonial"><strong>Bagus</strong> Harga murah tapi kualitas top. Gw langganan terus 😎 <div class="rating">⭐ 4.7</div></div>
+    </div>
+  </div>
+
+  <div class="info-card fade-in fade-delay-3">
+    <h2>Komentar</h2>
+    <form id="commentForm" class="comment-form">
+      <input type="text" id="name" placeholder="Nama kamu" required>
+      <textarea id="message" placeholder="Tulis komentar..." required></textarea>
+      <button type="submit">Kirim</button>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <div class="info-card fade-in fade-delay-3">
+    <h2>Hubungi Kami</h2>
+    <div class="contact">
+      <a href="https://t.me/XdeppDev"><i class="fab fa-telegram" style="color:#0088cc;"></i> Telegram</a>
+      <a href="https://wa.me/6282221744770"><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp</a>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 depstore | All Rights Reserved</footer>
+
+  <script>
+    const form = document.getElementById("commentForm");
+    const statusEl = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+      statusEl.textContent = "Mengirim...";
+
+      const res = await fetch("/api/comment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        statusEl.textContent = "Komentar berhasil dikirim!";
+        form.reset();
+      } else {
+        statusEl.textContent = "Gagal mengirim, coba lagi.";
+      }
+    });
+  </script>
+</body>
+  </html>
